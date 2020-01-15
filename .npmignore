@@ -1,0 +1,7 @@
+lib/
+tsconfig.json
+tslint.json
+docs/
+node_modules/
+*.test.*
+coverage/
