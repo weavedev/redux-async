@@ -15,7 +15,7 @@ npm i @weavedev/redux-async
 
 We generate API documentation with [TypeDoc](https://typedoc.org).
 
-[![API Documentation](https://img.shields.io/badge/API-Documentation-blue?style=for-the-badge&logo=appveyor)](https://weavedev.github.io/redux-async/)
+[![API Documentation](https://img.shields.io/badge/API-Documentation-blue?style=for-the-badge&logo=typescript)](https://weavedev.github.io/redux-async/)
 
 ## Usage
 
