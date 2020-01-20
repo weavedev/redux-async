@@ -11,6 +11,12 @@ Async function wrapper for [Redux](http://redux.js.org/) powered by [Redux-Saga]
 npm i @weavedev/redux-async
 ```
 
+## API documentation
+
+We generate API documentation with [TypeDoc](https://typedoc.org).
+
+[![API Documentation](https://img.shields.io/badge/API-Documentation-blue?style=for-the-badge&logo=appveyor)](https://weavedev.github.io/redux-async/)
+
 ## Usage
 
 ### Creating

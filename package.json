@@ -2,8 +2,8 @@
   "name": "@weavedev/redux-async",
   "version": "0.1.1",
   "description": "Async function wrapper for redux powered by redux-saga",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/ReduxAsync.js",
+  "types": "dist/ReduxAsync.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "ci:test": "npm-run-all -l build test:*",
