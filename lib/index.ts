@@ -140,19 +140,19 @@ export class ReduxAsync<T extends string, C extends string, E extends string, Fn
         };
     }
 
-    public request(...i: Parameters<Fn>): TriggerAction<T, Fn> {
+    public run(...i: Parameters<Fn>): TriggerAction<T, Fn> {
         return {
             type: this.triggerActionType,
             query: i,
         };
     }
 
-    public get requestSaga(): (...i: Parameters<Fn>) => any {
+    public get runSaga(): (...i: Parameters<Fn>) => any {
         const context: ReduxAsync<T, C, E, Fn> = this;
 
         return function* (...i: Parameters<Fn>): any {
             // Generate request
-            const request: TriggerAction<T, Fn> = context.request(...i);
+            const request: TriggerAction<T, Fn> = context.run(...i);
 
             // Fire request
             yield put(request);
