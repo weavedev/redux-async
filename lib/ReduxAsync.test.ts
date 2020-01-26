@@ -131,8 +131,9 @@ test('Should save Error to error as message and stack', (done: () => void) => {
     store.dispatch(e.run(1, 3, true));
     expect(store.getState().e.error).toBeUndefined();
     setTimeout(() => {
-        expect((<{message: any}>store.getState().e.error).message).toEqual('1 3 true');
-        expect((<{stack: any}>store.getState().e.error).stack).toContain('Error: 1 3 true');
+        expect((<{[key: string]: any}>store.getState().e.error).message).toEqual('1 3 true');
+        expect((<{[key: string]: any}>store.getState().e.error).name).toEqual('Error');
+        expect((<{[key: string]: any}>store.getState().e.error).stack).toContain('Error: 1 3 true');
         done();
     }, 80);
 });
@@ -170,15 +171,15 @@ test('Should catch errors that can\'t be parsed to console and report a generic 
         expect(store.getState().c.error).toEqual('Error: see console');
         const report: ConsoleReport = reporter();
 
-        expect(report[0]).toEqual(['group', 'Error in ReduxAsync']);
+        expect(report[0][0]).toEqual('error');
+        expect(report[0][1]).toEqual('Error in cT:');
+        expect((<{[key: string]: any}>report[0][2]).circular).toEqual('error');
+        expect((<{[key: string]: any}>report[0][2]).self).toEqual(report[0][2]);
+
         expect(report[1][0]).toEqual('warn');
-        expect(report[1][1]).toEqual('Could not parse error');
+        expect(report[1][1]).toEqual('Was not able to write error to store:');
         expect(report[1][2] instanceof Error).toEqual(true);
-        expect(report[2][0]).toEqual('error');
-        expect(report[2][1]).toEqual('Caught a complex error from: cT');
-        expect((<{[key: string]: any}>report[2][2]).circular).toEqual('error');
-        expect((<{[key: string]: any}>report[2][2]).self).toEqual(report[2][2]);
-        expect(report[3]).toEqual(['groupEnd']);
+
         done();
     }, 80);
 });
