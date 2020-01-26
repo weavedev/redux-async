@@ -80,5 +80,8 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     }
+  },
+  "dependencies": {
+    "@weavedev/reduxable": "^1.0.1"
   }
 }

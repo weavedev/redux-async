@@ -1,5 +1,6 @@
-import { Action, Reducer } from 'redux';
-import { Saga } from 'redux-saga';
+import { SagaIterator } from '@redux-saga/types';
+import { InternalReducer, Reduxable } from '@weavedev/reduxable';
+import { Action } from 'redux';
 import { call, CallEffect, ForkEffect, put, PutEffect, race, take, takeLatest } from 'redux-saga/effects';
 
 type PromiseReturnType<Fn extends (...args: any[]) => Promise<any>> = Parameters<ReturnType<Fn>['then']>[0];
@@ -23,22 +24,26 @@ type Actions<T, C, E, Fn extends (...args: any[]) => Promise<any>> = TriggerActi
 interface State<Fn extends (...args: any[]) => Promise<any>> {
     busy: boolean;
     error?: any;
-    data?: PromiseReturnType<Fn>;
+    data: PromiseReturnType<Fn> | undefined;
     query?: Parameters<Fn>;
     updated: {
         data?: string;
         error?: string;
         query?: string;
-        reset: string;
     };
 }
 
-type RequestSagaResultType<C, E, Fn extends (...args: any[]) => Promise<any>> = [ErrorAction<E>, CallbackAction<C, Fn>];
+// type RequestSagaResultType<C, E, Fn extends (...args: any[]) => Promise<any>> = [ErrorAction<E>, CallbackAction<C, Fn>];
 
 /**
  * Typed redux async class that generates actions, reducer and saga.
  */
-export class ReduxAsync<T extends string, C extends string, E extends string, Fn extends (...args: any[]) => Promise<any>> {
+export class ReduxAsync<
+    T extends string,
+    C extends string,
+    E extends string,
+    Fn extends (...args: any[]) => Promise<any>
+> extends Reduxable<State<Fn>, Parameters<Fn>> {
     private readonly triggerActionType: T;
     private readonly callbackActionType: C;
     private readonly errorActionType: E;
@@ -46,6 +51,7 @@ export class ReduxAsync<T extends string, C extends string, E extends string, Fn
     private readonly job: Fn;
 
     constructor(trigger: T, callback: C, error: E, job: Fn) {
+        super();
         this.triggerActionType = trigger;
         this.callbackActionType = callback;
         this.errorActionType = error;
@@ -56,48 +62,59 @@ export class ReduxAsync<T extends string, C extends string, E extends string, Fn
         throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider');
     }
 
-    public get state(): State<Fn> {
+    public get defaultState(): State<Fn> {
         return {
             busy: false,
-            updated: {
-                reset: new Date().toISOString(),
-            },
+            data: undefined,
+            updated: {},
         };
     }
 
-    public get reducer(): Reducer<State<Fn>> {
+    protected get internalReducer(): InternalReducer<State<Fn>> {
         const context: ReduxAsync<T, C, E, Fn> = this;
 
-        return (s: State<Fn> = context.state, action: Action): State<Fn> => {
+        return (state: State<Fn>, action: Action): State<Fn> => {
             switch(action.type) {
                 case (context.triggerActionType):
                     return {
-                        ...s,
                         busy: true,
+                        data: undefined,
                         query: (<TriggerAction<T, Fn>>action).query,
-                        updated: { ...s.updated, query: new Date().toISOString() },
+                        updated: {
+                            query: new Date().toISOString(),
+                        },
                     };
                 case (context.callbackActionType):
                     return {
-                        ...s,
+                        ...state,
                         busy: false,
                         data: (<CallbackAction<C, Fn>>action).data,
-                        updated: { ...s.updated, data: new Date().toISOString() },
+                        error: undefined,
+                        updated: {
+                            ...state.updated,
+                            data: new Date().toISOString(),
+                            error: undefined,
+                        },
                     };
                 case (context.errorActionType):
                     return {
-                        ...s,
+                        ...state,
                         busy: false,
+                        data: undefined,
                         error: (<ErrorAction<E>>action).error,
-                        updated: { ...s.updated, error: new Date().toISOString() },
+                        updated: {
+                            ...state.updated,
+                            data: undefined,
+                            error: new Date().toISOString(),
+                        },
                     };
                 default:
-                    return s;
+                    return state;
             }
         };
     }
 
-    public get saga(): Saga<any> {
+    public get saga(): (() => IterableIterator<ForkEffect>) {
         const context: ReduxAsync<T, C, E, Fn> = this;
 
         return function* (): IterableIterator<ForkEffect> {
@@ -130,9 +147,16 @@ export class ReduxAsync<T extends string, C extends string, E extends string, Fn
                             // Primitive
                             yield put({ type: context.errorActionType, error });
                         } else {
-                            console.error(`Caught a complex error from: ${context.triggerActionType}`, error);
+                            try {
+                                yield put({ type: context.errorActionType, error: JSON.parse(JSON.stringify(error)) });
+                            } catch (e) {
+                                console.group(`Error in ReduxAsync`);
+                                console.warn(`Could not parse error`, e);
+                                console.error(`Caught a complex error from: ${context.triggerActionType}`, error);
+                                console.groupEnd();
 
-                            yield put({ type: context.errorActionType, error });
+                                yield put({ type: context.errorActionType, error: 'Error: see console' });
+                            }
                         }
                     }
                 },
@@ -147,24 +171,21 @@ export class ReduxAsync<T extends string, C extends string, E extends string, Fn
         };
     }
 
-    public get runSaga(): (...i: Parameters<Fn>) => any {
+    public get runSaga(): (...i: Parameters<Fn>) => SagaIterator<State<Fn>> {
         const context: ReduxAsync<T, C, E, Fn> = this;
 
-        return function* (...i: Parameters<Fn>): any {
-            // Generate request
-            const request: TriggerAction<T, Fn> = context.run(...i);
-
+        return function* (...i: Parameters<Fn>): SagaIterator<State<Fn>> {
             // Fire request
-            yield put(request);
+            yield put(context.run(...i));
 
             // Wait for a response
-            const [failure, success]: RequestSagaResultType<C, E, Fn> = <RequestSagaResultType<C, E, Fn>>(yield race([
+            yield race([
                 take(context.errorActionType),
                 take(context.callbackActionType),
-            ]));
+            ]);
 
             // Simulate the next store state
-            return context.reducer(context.reducer(undefined, request), failure || success);
+            return context.state;
         };
     }
 }

@@ -1,5 +1,7 @@
 # redux-async
 
+[![Build Status - Travis CI](https://img.shields.io/travis/weavedev/redux-async.svg)](https://travis-ci.org/weavedev/redux-async)
+[![Test Coverage - Code Climate](https://img.shields.io/codeclimate/coverage/weavedev/redux-async.svg)](https://codeclimate.com/github/weavedev/redux-async/test_coverage)
 [![GPL-3.0](https://img.shields.io/github/license/weavedev/redux-async.svg)](https://github.com/weavedev/redux-async/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@weavedev/redux-async.svg)](https://www.npmjs.com/package/@weavedev/redux-async)
 
