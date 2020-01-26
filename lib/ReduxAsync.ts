@@ -33,8 +33,6 @@ interface State<Fn extends (...args: any[]) => Promise<any>> {
     };
 }
 
-// type RequestSagaResultType<C, E, Fn extends (...args: any[]) => Promise<any>> = [ErrorAction<E>, CallbackAction<C, Fn>];
-
 /**
  * Typed redux async class that generates actions, reducer and saga.
  */
@@ -123,41 +121,14 @@ export class ReduxAsync<
                 function* (action: TriggerAction<T, Fn>): IterableIterator<CallEffect | PutEffect> {
                     try {
                         // Wrapping async function in an async function because in some cases redux-saga destroys `this`
-                        const result: PromiseReturnType<Fn> = <PromiseReturnType<Fn>>(yield call(
-                            async (): Promise<PromiseReturnType<Fn>> => {
-                                return context.job(...action.query);
-                            },
-                        ));
                         yield put({
                             type: context.callbackActionType,
-                            data: result,
+                            data: <PromiseReturnType<Fn>>(yield call(
+                                async (): Promise<PromiseReturnType<Fn>> => context.job(...action.query),
+                            )),
                         });
                     } catch (error) {
-                        if (error instanceof Error) {
-                            yield put({
-                                type: context.errorActionType,
-                                error: Object.getOwnPropertyNames(error).reduce(
-                                    (a: {[key: string]: any}, k: string): {[key: string]: any} => ({
-                                        ...a, [k]: (<{[key: string]: any}>error)[k],
-                                    }),
-                                    {},
-                                ),
-                            });
-                        } else if (error !== Object(error)) {
-                            // Primitive
-                            yield put({ type: context.errorActionType, error });
-                        } else {
-                            try {
-                                yield put({ type: context.errorActionType, error: JSON.parse(JSON.stringify(error)) });
-                            } catch (e) {
-                                console.group(`Error in ReduxAsync`);
-                                console.warn(`Could not parse error`, e);
-                                console.error(`Caught a complex error from: ${context.triggerActionType}`, error);
-                                console.groupEnd();
-
-                                yield put({ type: context.errorActionType, error: 'Error: see console' });
-                            }
-                        }
+                        yield put(context.error(error));
                     }
                 },
             );
@@ -187,5 +158,24 @@ export class ReduxAsync<
             // Simulate the next store state
             return context.state;
         };
+    }
+
+    private error(error: any): ErrorAction<E> {
+        const returnable: ErrorAction<E> = { type: this.errorActionType, error: 'Error: see console' };
+
+        if (error instanceof Error) {
+            returnable.error = { message: error.message, name: error.name, stack: error.stack };
+        } else if (error !== Object(error)) {
+            returnable.error = error; // Primitive
+        } else {
+            try {
+                returnable.error = JSON.parse(JSON.stringify(error));
+            } catch (e) {
+                console.error(`Error in ${this.triggerActionType}:`, error);
+                console.warn('Was not able to write error to store:', e);
+            }
+        }
+
+        return returnable;
     }
 }
