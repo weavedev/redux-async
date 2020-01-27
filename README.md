@@ -78,6 +78,33 @@ function* mySaga(): Iterator<any> {
 }
 ```
 
+### Types
+
+You can access the types of the actions, reducer, saga and state by using `typeof`
+
+```ts
+// All actions
+type MyActions = typeof asyncResource.actions;
+
+// Trigger action
+type MyTriggerAction = typeof asyncResource.triggerAction;
+
+// Callback action
+type MyCallbackAction = typeof asyncResource.callbackAction;
+
+// Error action
+type MyErrorAction = typeof asyncResource.errorAction;
+
+// Reducer
+type MyReducer = typeof asyncResource.reducer;
+
+// Reducer
+type MySaga = typeof asyncResource.saga;
+
+// State
+type MyState = typeof asyncResource.state;
+```
+
 ## License
 
 [GPL-3.0](https://github.com/weavedev/redux-async/blob/master/LICENSE)
