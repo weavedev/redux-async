@@ -3,7 +3,7 @@ import { InternalReducer, Reduxable } from '@weavedev/reduxable';
 import { Action } from 'redux';
 import { call, CallEffect, ForkEffect, put, PutEffect, race, take, takeLatest } from 'redux-saga/effects';
 
-type ThenArg<T> = T extends Promise<infer U> ? U : T extends ((...args: any[]) => Promise<infer V>) ? V : T;
+type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
 type PromiseReturnType<Fn extends (...args: any[]) => Promise<any>> = ThenArg<ReturnType<Fn>>;
 
 interface TriggerAction<T, Fn extends (...args: any[]) => Promise<any>> extends Action<T> {
