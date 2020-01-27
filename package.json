@@ -1,6 +1,6 @@
 {
   "name": "@weavedev/redux-async",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Async function wrapper for redux powered by redux-saga",
   "main": "dist/ReduxAsync.js",
   "types": "dist/ReduxAsync.d.ts",
