@@ -57,7 +57,19 @@ export class ReduxAsync<
     }
 
     public get actions(): Actions<T, C, E, Fn> {
-        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider');
+        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .actions)');
+    }
+
+    public get triggerAction(): TriggerAction<T, Fn> {
+        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .triggerAction)');
+    }
+
+    public get callbackAction(): CallbackAction<C, Fn> {
+        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .callbackAction)');
+    }
+
+    public get errorAction(): ErrorAction<E> {
+        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .errorAction)');
     }
 
     public get defaultState(): State<Fn> {
