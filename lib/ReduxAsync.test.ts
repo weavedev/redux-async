@@ -103,6 +103,24 @@ test('Should throw when accessing .actions', () => {
     }).toThrowError();
 });
 
+test('Should throw when accessing .triggerAction', () => {
+    expect(() => {
+        console.log(n.triggerAction, 'never');
+    }).toThrowError();
+});
+
+test('Should throw when accessing .callbackAction', () => {
+    expect(() => {
+        console.log(n.callbackAction, 'never');
+    }).toThrowError();
+});
+
+test('Should throw when accessing .errorAction', () => {
+    expect(() => {
+        console.log(n.errorAction, 'never');
+    }).toThrowError();
+});
+
 test('Should save parameters to query on run', () => {
     expect(store.getState().n.query).toBeUndefined();
     store.dispatch(n.run(7, 11, true));

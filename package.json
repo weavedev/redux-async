@@ -1,6 +1,6 @@
 {
   "name": "@weavedev/redux-async",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "Async function wrapper for redux powered by redux-saga",
   "main": "dist/ReduxAsync.js",
   "types": "dist/ReduxAsync.d.ts",
@@ -82,6 +82,6 @@
     }
   },
   "dependencies": {
-    "@weavedev/reduxable": "^1.0.1"
+    "@weavedev/reduxable": "^1.0.2"
   }
 }
