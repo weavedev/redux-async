@@ -126,9 +126,9 @@
 				<a href="#use-inside-a-saga" id="use-inside-a-saga" style="color: inherit; text-decoration: none;">
 					<h3>Use inside a saga</h3>
 				</a>
-				<p>You can run and wait for results from your async function by calling <code>.runSaga()</code>. The argument types will match those of your async function. This can be useful when you need to run multiple async tasks in order.</p>
+				<p>You can run and wait for results from your async function by passing <code>.runSaga</code> to <code>redux-saga</code>&#39;s <code>call()</code> effect. The argument types will match those of your async function. This can be useful when you need to run multiple async tasks in order.</p>
 				<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">mySaga</span>(<span class="hljs-params"></span>): <span class="hljs-title">Iterator</span>&lt;<span class="hljs-title">any</span>&gt; </span>{
-    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">yield</span> call(asyncResource.runSaga(<span class="hljs-string">'Laura'</span>));
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">yield</span> call(asyncResource.runSaga, <span class="hljs-string">'Laura'</span>);
 
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"resource returned"</span>, result);
 }</code></pre>
