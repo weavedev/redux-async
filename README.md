@@ -87,13 +87,13 @@ You can access the types of the actions, reducer, saga and state by using `typeo
 type MyActions = typeof asyncResource.actions;
 
 // Trigger action
-type MyTriggerAction = typeof asyncResource.triggerAction;
+type MyTriggerAction = typeof asyncResource.actionMap.trigger;
 
 // Callback action
-type MyCallbackAction = typeof asyncResource.callbackAction;
+type MyCallbackAction = typeof asyncResource.actionMap.callback;
 
 // Error action
-type MyErrorAction = typeof asyncResource.errorAction;
+type MyErrorAction = typeof asyncResource.actionMap.error;
 
 // Reducer
 type MyReducer = typeof asyncResource.reducer;

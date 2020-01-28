@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/types';
-import { InternalReducer, Reduxable } from '@weavedev/reduxable';
+import { ActionMap, InternalReducer, Reduxable } from '@weavedev/reduxable';
 import { Action } from 'redux';
 import { call, CallEffect, ForkEffect, put, PutEffect, race, take, takeLatest } from 'redux-saga/effects';
 
@@ -18,9 +18,11 @@ interface ErrorAction<T> extends Action<T> {
     error: any;
 }
 
-type Actions<T, C, E, Fn extends (...args: any[]) => Promise<any>> = TriggerAction<T, Fn>
-    | CallbackAction<C, Fn>
-    | ErrorAction<E>;
+interface ReduxAsyncActionMap<T, C, E, Fn extends (...args: any[]) => Promise<any>> extends ActionMap {
+    trigger: TriggerAction<T, Fn>;
+    callback: CallbackAction<C, Fn>;
+    error: ErrorAction<E>;
+}
 
 interface State<Fn extends (...args: any[]) => Promise<any>> {
     busy: boolean;
@@ -42,7 +44,7 @@ export class ReduxAsync<
     C extends string,
     E extends string,
     Fn extends (...args: any[]) => Promise<any>
-> extends Reduxable<State<Fn>, Parameters<Fn>> {
+> extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn>, Parameters<Fn>> {
     private readonly triggerActionType: T;
     private readonly callbackActionType: C;
     private readonly errorActionType: E;
@@ -57,20 +59,8 @@ export class ReduxAsync<
         this.job = job;
     }
 
-    public get actions(): Actions<T, C, E, Fn> {
-        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .actions)');
-    }
-
-    public get triggerAction(): TriggerAction<T, Fn> {
-        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .triggerAction)');
-    }
-
-    public get callbackAction(): CallbackAction<C, Fn> {
-        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .callbackAction)');
-    }
-
-    public get errorAction(): ErrorAction<E> {
-        throw new Error('ReduxAsync.actions should only be used as a TypeScript type provider (typeof .errorAction)');
+    public get actionMap(): ReduxAsyncActionMap<T, C, E, Fn> {
+        throw new Error('ReduxAsync.actionMap should only be used as a TypeScript type provider (typeof .actionMap)');
     }
 
     public get defaultState(): State<Fn> {

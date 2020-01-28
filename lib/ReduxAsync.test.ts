@@ -97,27 +97,9 @@ beforeEach(() => {
     sagaMiddleware.run(t.saga);
 });
 
-test('Should throw when accessing .actions', () => {
+test('Should throw when accessing .actionMap', () => {
     expect(() => {
-        console.log(n.actions, 'never');
-    }).toThrowError();
-});
-
-test('Should throw when accessing .triggerAction', () => {
-    expect(() => {
-        console.log(n.triggerAction, 'never');
-    }).toThrowError();
-});
-
-test('Should throw when accessing .callbackAction', () => {
-    expect(() => {
-        console.log(n.callbackAction, 'never');
-    }).toThrowError();
-});
-
-test('Should throw when accessing .errorAction', () => {
-    expect(() => {
-        console.log(n.errorAction, 'never');
+        console.log(n.actionMap, 'never');
     }).toThrowError();
 });
 
