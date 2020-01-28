@@ -68,11 +68,11 @@ window.store.dispatch(asyncResource.run('Dave'));
 
 ### Use inside a saga
 
-You can run and wait for results from your async function by calling `.runSaga()`. The argument types will match those of your async function. This can be useful when you need to run multiple async tasks in order.
+You can run and wait for results from your async function by passing `.runSaga` to `redux-saga`'s `call()` effect. The argument types will match those of your async function. This can be useful when you need to run multiple async tasks in order.
 
 ```ts
 function* mySaga(): Iterator<any> {
-    const result = yield call(asyncResource.runSaga('Laura'));
+    const result = yield call(asyncResource.runSaga, 'Laura');
 
     console.log("resource returned", result);
 }
