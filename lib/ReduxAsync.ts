@@ -167,7 +167,9 @@ export class ReduxAsync<
         const returnable: ErrorAction<E> = { type: this.errorActionType, error: 'Error: see console' };
 
         if (error instanceof Error) {
-            returnable.error = { message: error.message, name: error.name, stack: error.stack };
+            returnable.error = Object.getOwnPropertyNames(error).reduce(
+                (a: {[key: string]: any}, k: string) => k === 'stack' ? a : ({ ...a, [k]: (<{[key: string]: any}>error)[k] }), {},
+            );
         } else if (error !== Object(error)) {
             returnable.error = error; // Primitive
         } else {

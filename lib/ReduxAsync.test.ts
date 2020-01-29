@@ -36,17 +36,30 @@ const wrapConsole: (() => (() => ConsoleReport)) = (): (() => ConsoleReport) => 
 
 let c: ReduxAsync<'cT', 'cC', 'cE', () => Promise<string>>;
 let e: ReduxAsync<'eT', 'eC', 'eE', (i: number, j: number, k: boolean) => Promise<string>>;
+let ee: ReduxAsync<'eeT', 'eeC', 'eeE', (i: number, j: number, k: boolean) => Promise<string>>;
 let f: ReduxAsync<'fT', 'fC', 'fE', (i: number, j: number, k: boolean) => Promise<string>>;
 let n: ReduxAsync<'nT', 'nC', 'nE', (i: number, j: number, k: boolean) => Promise<string>>;
 let t: ReduxAsync<'tT', 'tC', 'tE', () => Promise<string>>;
 let store: Store<{
     c: typeof c.state;
     e: typeof e.state;
+    ee: typeof ee.state;
     f: typeof f.state;
     n: typeof n.state;
     t: typeof t.state;
 }>;
 let sagaMiddleware: SagaMiddleware;
+
+/**
+ * Custom error class
+ */
+class MyCustomError extends Error {
+    public propertyOnError: string;
+    constructor(err: string) {
+        super(err);
+        this.propertyOnError = `Custom: ${err}`;
+    }
+}
 
 beforeEach(() => {
     c = new ReduxAsync('cT', 'cC', 'cE', async (): Promise<string> => {
@@ -58,7 +71,14 @@ beforeEach(() => {
     e = new ReduxAsync('eT', 'eC', 'eE', async (i: number, j: number, k: boolean): Promise<string> => {
         return new Promise((_: ((value: string) => void), reject: ((value: any) => void)): void => {
             setTimeout(() => {
-                reject(Error(`${i} ${j} ${k}`));
+                reject(new Error(`${i} ${j} ${k}`));
+            }, 50);
+        });
+    });
+    ee = new ReduxAsync('eeT', 'eeC', 'eeE', async (i: number, j: number, k: boolean): Promise<string> => {
+        return new Promise((_: ((value: string) => void), reject: ((value: any) => void)): void => {
+            setTimeout(() => {
+                reject(new MyCustomError(`${i} ${j} ${k}`));
             }, 50);
         });
     });
@@ -84,6 +104,7 @@ beforeEach(() => {
         combineReducers({
             c: c.reducer,
             e: e.reducer,
+            ee: ee.reducer,
             f: f.reducer,
             n: n.reducer,
             t: t.reducer,
@@ -92,6 +113,7 @@ beforeEach(() => {
     );
     sagaMiddleware.run(c.saga);
     sagaMiddleware.run(e.saga);
+    sagaMiddleware.run(ee.saga);
     sagaMiddleware.run(f.saga);
     sagaMiddleware.run(n.saga);
     sagaMiddleware.run(t.saga);
@@ -132,8 +154,19 @@ test('Should save Error to error as message and stack', (done: () => void) => {
     expect(store.getState().e.error).toBeUndefined();
     setTimeout(() => {
         expect((<{[key: string]: any}>store.getState().e.error).message).toEqual('1 3 true');
-        expect((<{[key: string]: any}>store.getState().e.error).name).toEqual('Error');
-        expect((<{[key: string]: any}>store.getState().e.error).stack).toContain('Error: 1 3 true');
+        expect((<{[key: string]: any}>store.getState().e.error).stack).toBeUndefined();
+        done();
+    }, 80);
+});
+
+test('Should save extended Errors to error with properties', (done: () => void) => {
+    expect(store.getState().ee.error).toBeUndefined();
+    store.dispatch(ee.run(1, 3, true));
+    expect(store.getState().ee.error).toBeUndefined();
+    setTimeout(() => {
+        expect((<{[key: string]: any}>store.getState().ee.error).message).toEqual('1 3 true');
+        expect((<{[key: string]: any}>store.getState().ee.error).propertyOnError).toEqual('Custom: 1 3 true');
+        expect((<{[key: string]: any}>store.getState().ee.error).stack).toBeUndefined();
         done();
     }, 80);
 });
