@@ -1,5 +1,5 @@
 import { SagaIterator } from '@redux-saga/types';
-import { ActionMap, InternalReducer, Reduxable } from '@weavedev/reduxable';
+import { ActionMap, ActionTypesFromActionMap, InternalReducer, Reduxable } from '@weavedev/reduxable';
 import { Action } from 'redux';
 import { call, CallEffect, ForkEffect, put, PutEffect, race, take, takeLatest } from 'redux-saga/effects';
 
@@ -45,17 +45,18 @@ export class ReduxAsync<
     E extends string,
     Fn extends (...args: any[]) => Promise<any>
 > extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn>, Parameters<Fn>> {
-    private readonly triggerActionType: T;
-    private readonly callbackActionType: C;
-    private readonly errorActionType: E;
+    public readonly actionTypeMap: ActionTypesFromActionMap<ReduxAsyncActionMap<T, C, E, Fn>>;
 
     private readonly job: Fn;
 
     constructor(trigger: T, callback: C, error: E, job: Fn) {
         super();
-        this.triggerActionType = trigger;
-        this.callbackActionType = callback;
-        this.errorActionType = error;
+        this.actionTypeMap = {
+            callback,
+            error,
+            trigger,
+        };
+
         this.job = job;
     }
 
@@ -76,7 +77,7 @@ export class ReduxAsync<
 
         return (state: State<Fn>, action: Action): State<Fn> => {
             switch(action.type) {
-                case (context.triggerActionType):
+                case (context.actionTypeMap.trigger):
                     return {
                         busy: true,
                         data: undefined,
@@ -85,7 +86,7 @@ export class ReduxAsync<
                             query: new Date().toISOString(),
                         },
                     };
-                case (context.callbackActionType):
+                case (context.actionTypeMap.callback):
                     return {
                         ...state,
                         busy: false,
@@ -97,7 +98,7 @@ export class ReduxAsync<
                             error: undefined,
                         },
                     };
-                case (context.errorActionType):
+                case (context.actionTypeMap.error):
                     return {
                         ...state,
                         busy: false,
@@ -120,12 +121,12 @@ export class ReduxAsync<
 
         return function* (): IterableIterator<ForkEffect> {
             yield takeLatest(
-                context.triggerActionType,
+                context.actionTypeMap.trigger,
                 function* (action: TriggerAction<T, Fn>): IterableIterator<CallEffect | PutEffect> {
                     try {
                         // Wrapping async function in an async function because in some cases redux-saga destroys `this`
                         yield put({
-                            type: context.callbackActionType,
+                            type: context.actionTypeMap.callback,
                             data: <PromiseReturnType<Fn>>(yield call(
                                 async (): Promise<PromiseReturnType<Fn>> => context.job(...action.query),
                             )),
@@ -140,7 +141,7 @@ export class ReduxAsync<
 
     public run(...i: Parameters<Fn>): TriggerAction<T, Fn> {
         return {
-            type: this.triggerActionType,
+            type: this.actionTypeMap.trigger,
             query: i,
         };
     }
@@ -154,8 +155,8 @@ export class ReduxAsync<
 
             // Wait for a response
             yield race([
-                take(context.errorActionType),
-                take(context.callbackActionType),
+                take(context.actionTypeMap.error),
+                take(context.actionTypeMap.callback),
             ]);
 
             // Simulate the next store state
@@ -164,7 +165,7 @@ export class ReduxAsync<
     }
 
     private error(error: any): ErrorAction<E> {
-        const returnable: ErrorAction<E> = { type: this.errorActionType, error: 'Error: see console' };
+        const returnable: ErrorAction<E> = { type: this.actionTypeMap.error, error: 'Error: see console' };
 
         if (error instanceof Error) {
             returnable.error = Object.getOwnPropertyNames(error).reduce(
@@ -176,7 +177,7 @@ export class ReduxAsync<
             try {
                 returnable.error = JSON.parse(JSON.stringify(error));
             } catch (e) {
-                console.error(`Error in ${this.triggerActionType}:`, error);
+                console.error(`Error in ${this.actionTypeMap.trigger}:`, error);
                 console.warn('Was not able to write error to store:', e);
             }
         }

@@ -125,6 +125,12 @@ test('Should throw when accessing .actionMap', () => {
     }).toThrowError();
 });
 
+test('Should return action types from actionTypeMap', () => {
+    expect(n.actionTypeMap.callback).toEqual('nC');
+    expect(n.actionTypeMap.error).toEqual('nE');
+    expect(n.actionTypeMap.trigger).toEqual('nT');
+});
+
 test('Should save parameters to query on run', () => {
     expect(store.getState().n.query).toBeUndefined();
     store.dispatch(n.run(7, 11, true));

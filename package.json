@@ -82,6 +82,6 @@
     }
   },
   "dependencies": {
-    "@weavedev/reduxable": "^1.0.3"
+    "@weavedev/reduxable": "^1.0.4"
   }
 }
