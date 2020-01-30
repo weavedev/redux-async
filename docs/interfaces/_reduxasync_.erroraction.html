@@ -62,7 +62,7 @@
 					<a href="_reduxasync_.erroraction.html">ErrorAction</a>
 				</li>
 			</ul>
-			<h1>Interface ErrorAction&lt;T&gt;</h1>
+			<h1>Interface ErrorAction&lt;T, Ctx&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -74,6 +74,9 @@
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>T</h4>
+					</li>
+					<li>
+						<h4>Ctx</h4>
 					</li>
 				</ul>
 			</section>
@@ -97,6 +100,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.erroraction.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.erroraction.html#error" class="tsd-kind-icon">error</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_reduxasync_.erroraction.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
@@ -107,12 +111,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="context" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context</h3>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">Ctx</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L20">ReduxAsync.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
 					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L18">ReduxAsync.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L21">ReduxAsync.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -154,6 +168,9 @@
 						<a href="_reduxasync_.erroraction.html" class="tsd-kind-icon">Error<wbr>Action</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_reduxasync_.erroraction.html#context" class="tsd-kind-icon">context</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_reduxasync_.erroraction.html#error" class="tsd-kind-icon">error</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
@@ -164,13 +181,13 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_reduxasync_.reduxasyncactionmap.html" class="tsd-kind-icon">Redux<wbr>Async<wbr>Action<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_reduxasync_.state.html" class="tsd-kind-icon">State</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_reduxasync_.triggeraction.html" class="tsd-kind-icon">Trigger<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../modules/_reduxasync_.html#actions" class="tsd-kind-icon">Actions</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../modules/_reduxasync_.html#promisereturntype" class="tsd-kind-icon">Promise<wbr>Return<wbr>Type</a>

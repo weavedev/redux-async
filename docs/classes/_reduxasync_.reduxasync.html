@@ -62,7 +62,7 @@
 					<a href="_reduxasync_.reduxasync.html">ReduxAsync</a>
 				</li>
 			</ul>
-			<h1>Class ReduxAsync&lt;T, C, E, Fn&gt;</h1>
+			<h1>Class ReduxAsync&lt;T, C, E, Fn, Ctx&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -84,13 +84,16 @@
 					<li>
 						<h4>Fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h4>
 					</li>
+					<li>
+						<h4>Ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h4>
+					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Reduxable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_reduxasync_.state.html" class="tsd-signature-type">State</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">Reduxable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_reduxasync_.state.html" class="tsd-signature-type">State</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/_reduxasync_.reduxasyncactionmap.html" class="tsd-signature-type">ReduxAsyncActionMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">ReduxAsync</span>
@@ -109,28 +112,25 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_reduxasync_.reduxasync.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_reduxasync_.reduxasync.html#callbackactiontype" class="tsd-kind-icon">callback<wbr>Action<wbr>Type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_reduxasync_.reduxasync.html#erroractiontype" class="tsd-kind-icon">error<wbr>Action<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#actiontypemap" class="tsd-kind-icon">action<wbr>Type<wbr>Map</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_reduxasync_.reduxasync.html#ctx" class="tsd-kind-icon">ctx</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_reduxasync_.reduxasync.html#job" class="tsd-kind-icon">job</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_reduxasync_.reduxasync.html#triggeractiontype" class="tsd-kind-icon">trigger<wbr>Action<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#actions" class="tsd-kind-icon">actions</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_reduxasync_.reduxasync.html#callbackaction" class="tsd-kind-icon">callback<wbr>Action</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#actionmap" class="tsd-kind-icon">action<wbr>Map</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_reduxasync_.reduxasync.html#actions" class="tsd-kind-icon">actions</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#defaultstate" class="tsd-kind-icon">default<wbr>State</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_reduxasync_.reduxasync.html#erroraction" class="tsd-kind-icon">error<wbr>Action</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_reduxasync_.reduxasync.html#internalreducer" class="tsd-kind-icon">internal<wbr>Reducer</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_reduxasync_.reduxasync.html#reducer" class="tsd-kind-icon">reducer</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#runsaga" class="tsd-kind-icon">run<wbr>Saga</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_reduxasync_.reduxasync.html#saga" class="tsd-kind-icon">saga</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_reduxasync_.reduxasync.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_reduxasync_.reduxasync.html#triggeraction" class="tsd-kind-icon">trigger<wbr>Action</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -149,13 +149,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Redux<wbr>Async<span class="tsd-signature-symbol">(</span>trigger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span>, job<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_reduxasync_.reduxasync.html" class="tsd-signature-type">ReduxAsync</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Redux<wbr>Async<span class="tsd-signature-symbol">(</span>trigger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span>, job<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Fn</span>, ctx<span class="tsd-signature-symbol">: </span><a href="" class="tsd-signature-type">Ctx</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_reduxasync_.reduxasync.html" class="tsd-signature-type">ReduxAsync</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L50">ReduxAsync.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L55">ReduxAsync.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -172,31 +172,35 @@
 								<li>
 									<h5>job: <span class="tsd-signature-type">Fn</span></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ctx: <a href="" class="tsd-signature-type">Ctx</a></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_reduxasync_.reduxasync.html" class="tsd-signature-type">ReduxAsync</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="callbackactiontype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> callback<wbr>Action<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<wbr>Action<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">C</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+					<a name="actiontypemap" class="tsd-anchor"></a>
+					<h3>action<wbr>Type<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">action<wbr>Type<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ActionTypesFromActionMap</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_reduxasync_.reduxasyncactionmap.html" class="tsd-signature-type">ReduxAsyncActionMap</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Overrides Reduxable.actionTypeMap</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L47">ReduxAsync.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L52">ReduxAsync.ts:52</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="erroractiontype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> error<wbr>Action<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">error<wbr>Action<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">E</span></div>
+					<a name="ctx" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> ctx</h3>
+					<div class="tsd-signature tsd-kind-icon">ctx<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">Ctx</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L48">ReduxAsync.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L55">ReduxAsync.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -206,17 +210,7 @@
 					<div class="tsd-signature tsd-kind-icon">job<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Fn</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L50">ReduxAsync.ts:50</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="triggeractiontype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> trigger<wbr>Action<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">trigger<wbr>Action<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L46">ReduxAsync.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L54">ReduxAsync.ts:54</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -224,23 +218,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="actionmap" class="tsd-anchor"></a>
+					<h3>action<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">action<wbr>Map<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Overrides Reduxable.actionMap</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L69">ReduxAsync.ts:69</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="actions" class="tsd-anchor"></a>
 					<h3>actions</h3>
 					<div class="tsd-signature tsd-kind-icon">actions<span class="tsd-signature-symbol">:</span> </div>
 					<aside class="tsd-sources">
-						<p>Overrides Reduxable.actions</p>
+						<p>Inherited from Reduxable.actions</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L60">ReduxAsync.ts:60</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="callbackaction" class="tsd-anchor"></a>
-					<h3>callback<wbr>Action</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<wbr>Action<span class="tsd-signature-symbol">:</span> </div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L68">ReduxAsync.ts:68</a></li>
+							<li>Defined in /Users/paulgerarts/git/github.com/gerarts/redux-async/node_modules/@weavedev/reduxable/dist/Reduxable.d.ts:25</li>
 						</ul>
 					</aside>
 				</section>
@@ -251,17 +246,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Reduxable.defaultState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L76">ReduxAsync.ts:76</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="erroraction" class="tsd-anchor"></a>
-					<h3>error<wbr>Action</h3>
-					<div class="tsd-signature tsd-kind-icon">error<wbr>Action<span class="tsd-signature-symbol">:</span> </div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L72">ReduxAsync.ts:72</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L73">ReduxAsync.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -272,7 +257,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Reduxable.internalReducer</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L84">ReduxAsync.ts:84</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L81">ReduxAsync.ts:81</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -283,7 +268,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reduxable.reducer</p>
 						<ul>
-							<li>Defined in /Users/paulgerarts/git/github.com/gerarts/redux-async/node_modules/@weavedev/reduxable/dist/Reduxable.d.ts:19</li>
+							<li>Defined in /Users/paulgerarts/git/github.com/gerarts/redux-async/node_modules/@weavedev/reduxable/dist/Reduxable.d.ts:27</li>
 						</ul>
 					</aside>
 				</section>
@@ -294,7 +279,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Reduxable.runSaga</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L158">ReduxAsync.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L157">ReduxAsync.ts:157</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -305,7 +290,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Reduxable.saga</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L128">ReduxAsync.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L125">ReduxAsync.ts:125</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -316,17 +301,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reduxable.state</p>
 						<ul>
-							<li>Defined in /Users/paulgerarts/git/github.com/gerarts/redux-async/node_modules/@weavedev/reduxable/dist/Reduxable.d.ts:20</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="triggeraction" class="tsd-anchor"></a>
-					<h3>trigger<wbr>Action</h3>
-					<div class="tsd-signature tsd-kind-icon">trigger<wbr>Action<span class="tsd-signature-symbol">:</span> </div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L64">ReduxAsync.ts:64</a></li>
+							<li>Defined in /Users/paulgerarts/git/github.com/gerarts/redux-async/node_modules/@weavedev/reduxable/dist/Reduxable.d.ts:28</li>
 						</ul>
 					</aside>
 				</section>
@@ -337,13 +312,13 @@
 					<a name="error" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> error</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L176">ReduxAsync.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L175">ReduxAsync.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -352,7 +327,7 @@
 									<h5>error: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -360,14 +335,14 @@
 					<a name="run" class="tsd-anchor"></a>
 					<h3>run</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Reduxable.run</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/3b410e3/lib/ReduxAsync.ts#L151">ReduxAsync.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L149">ReduxAsync.ts:149</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -376,7 +351,7 @@
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> i: <span class="tsd-signature-type">Parameters</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -403,29 +378,23 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_reduxasync_.reduxasync.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_reduxasync_.reduxasync.html#callbackactiontype" class="tsd-kind-icon">callback<wbr>Action<wbr>Type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_reduxasync_.reduxasync.html#actiontypemap" class="tsd-kind-icon">action<wbr>Type<wbr>Map</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_reduxasync_.reduxasync.html#erroractiontype" class="tsd-kind-icon">error<wbr>Action<wbr>Type</a>
+								<a href="_reduxasync_.reduxasync.html#ctx" class="tsd-kind-icon">ctx</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_reduxasync_.reduxasync.html#job" class="tsd-kind-icon">job</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_reduxasync_.reduxasync.html#triggeractiontype" class="tsd-kind-icon">trigger<wbr>Action<wbr>Type</a>
-							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_reduxasync_.reduxasync.html#actions" class="tsd-kind-icon">actions</a>
+								<a href="_reduxasync_.reduxasync.html#actionmap" class="tsd-kind-icon">action<wbr>Map</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_reduxasync_.reduxasync.html#callbackaction" class="tsd-kind-icon">callback<wbr>Action</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_reduxasync_.reduxasync.html#actions" class="tsd-kind-icon">actions</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_reduxasync_.reduxasync.html#defaultstate" class="tsd-kind-icon">default<wbr>State</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_reduxasync_.reduxasync.html#erroraction" class="tsd-kind-icon">error<wbr>Action</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 								<a href="_reduxasync_.reduxasync.html#internalreducer" class="tsd-kind-icon">internal<wbr>Reducer</a>
@@ -441,9 +410,6 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_reduxasync_.reduxasync.html#state" class="tsd-kind-icon">state</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_reduxasync_.reduxasync.html#triggeraction" class="tsd-kind-icon">trigger<wbr>Action</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_reduxasync_.reduxasync.html#error" class="tsd-kind-icon">error</a>
@@ -462,13 +428,13 @@
 						<a href="../interfaces/_reduxasync_.erroraction.html" class="tsd-kind-icon">Error<wbr>Action</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../interfaces/_reduxasync_.reduxasyncactionmap.html" class="tsd-kind-icon">Redux<wbr>Async<wbr>Action<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../interfaces/_reduxasync_.state.html" class="tsd-kind-icon">State</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../interfaces/_reduxasync_.triggeraction.html" class="tsd-kind-icon">Trigger<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../modules/_reduxasync_.html#actions" class="tsd-kind-icon">Actions</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../modules/_reduxasync_.html#promisereturntype" class="tsd-kind-icon">Promise<wbr>Return<wbr>Type</a>

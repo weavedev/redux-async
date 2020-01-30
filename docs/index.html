@@ -140,13 +140,13 @@
 <span class="hljs-keyword">type</span> MyActions = <span class="hljs-keyword">typeof</span> asyncResource.actions;
 
 <span class="hljs-comment">// Trigger action</span>
-<span class="hljs-keyword">type</span> MyTriggerAction = <span class="hljs-keyword">typeof</span> asyncResource.triggerAction;
+<span class="hljs-keyword">type</span> MyTriggerAction = <span class="hljs-keyword">typeof</span> asyncResource.actionMap.trigger;
 
 <span class="hljs-comment">// Callback action</span>
-<span class="hljs-keyword">type</span> MyCallbackAction = <span class="hljs-keyword">typeof</span> asyncResource.callbackAction;
+<span class="hljs-keyword">type</span> MyCallbackAction = <span class="hljs-keyword">typeof</span> asyncResource.actionMap.callback;
 
 <span class="hljs-comment">// Error action</span>
-<span class="hljs-keyword">type</span> MyErrorAction = <span class="hljs-keyword">typeof</span> asyncResource.errorAction;
+<span class="hljs-keyword">type</span> MyErrorAction = <span class="hljs-keyword">typeof</span> asyncResource.actionMap.error;
 
 <span class="hljs-comment">// Reducer</span>
 <span class="hljs-keyword">type</span> MyReducer = <span class="hljs-keyword">typeof</span> asyncResource.reducer;
