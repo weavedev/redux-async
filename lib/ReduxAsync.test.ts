@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 import reduxSaga, { SagaIterator, SagaMiddleware } from 'redux-saga';
-import { call } from 'redux-saga/effects';
+import { call, takeLatest } from 'redux-saga/effects';
 import { ReduxAsync } from './ReduxAsync';
 
 type ConsoleType = 'error' | 'group' | 'groupCollapsed' | 'groupEnd' | 'log' | 'warn';
@@ -35,6 +35,7 @@ const wrapConsole: (() => (() => ConsoleReport)) = (): (() => ConsoleReport) => 
 };
 
 let c: ReduxAsync<'cT', 'cC', 'cE', () => Promise<string>>;
+let ctx: ReduxAsync<'ctxT', 'ctxC', 'ctxE', () => Promise<string>, { with: 'context' }>;
 let e: ReduxAsync<'eT', 'eC', 'eE', (i: number, j: number, k: boolean) => Promise<string>>;
 let ee: ReduxAsync<'eeT', 'eeC', 'eeE', (i: number, j: number, k: boolean) => Promise<string>>;
 let f: ReduxAsync<'fT', 'fC', 'fE', (i: number, j: number, k: boolean) => Promise<string>>;
@@ -42,6 +43,7 @@ let n: ReduxAsync<'nT', 'nC', 'nE', (i: number, j: number, k: boolean) => Promis
 let t: ReduxAsync<'tT', 'tC', 'tE', () => Promise<string>>;
 let store: Store<{
     c: typeof c.state;
+    ctx: typeof ctx.state;
     e: typeof e.state;
     ee: typeof ee.state;
     f: typeof f.state;
@@ -68,6 +70,13 @@ beforeEach(() => {
 
         throw a;
     });
+    ctx = new ReduxAsync('ctxT', 'ctxC', 'ctxE', async (): Promise<string> => {
+        return new Promise((resolve: ((value: string) => void)): void => {
+            setTimeout(() => {
+                resolve(`done!`);
+            }, 50);
+        });
+    }, { with: 'context' });
     e = new ReduxAsync('eT', 'eC', 'eE', async (i: number, j: number, k: boolean): Promise<string> => {
         return new Promise((_: ((value: string) => void), reject: ((value: any) => void)): void => {
             setTimeout(() => {
@@ -103,6 +112,7 @@ beforeEach(() => {
     store = createStore(
         combineReducers({
             c: c.reducer,
+            ctx: ctx.reducer,
             e: e.reducer,
             ee: ee.reducer,
             f: f.reducer,
@@ -112,6 +122,7 @@ beforeEach(() => {
         applyMiddleware(sagaMiddleware),
     );
     sagaMiddleware.run(c.saga);
+    sagaMiddleware.run(ctx.saga);
     sagaMiddleware.run(e.saga);
     sagaMiddleware.run(ee.saga);
     sagaMiddleware.run(f.saga);
@@ -251,4 +262,14 @@ test('RunSaga should return error', (done: () => void) => {
         expect(result.query).toEqual([]);
         done();
     }, 80);
+});
+
+test('Should include context in action if set', (done: () => void) => {
+    sagaMiddleware.run(function* (): IterableIterator<any> {
+        yield takeLatest(ctx.actionTypeMap.callback, function* (action: typeof ctx.actionMap.callback): IterableIterator<any> {
+            expect(action.context).toEqual({ with: 'context' });
+            done();
+        });
+    });
+    store.dispatch(ctx.run());
 });

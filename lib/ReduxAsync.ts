@@ -6,22 +6,25 @@ import { call, CallEffect, ForkEffect, put, PutEffect, race, take, takeLatest } 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
 type PromiseReturnType<Fn extends (...args: any[]) => Promise<any>> = ThenArg<ReturnType<Fn>>;
 
-interface TriggerAction<T, Fn extends (...args: any[]) => Promise<any>> extends Action<T> {
+interface TriggerAction<T, Fn extends (...args: any[]) => Promise<any>, Ctx> extends Action<T> {
+    context?: Ctx;
     query: Parameters<Fn>;
 }
 
-interface CallbackAction<T, Fn extends (...args: any[]) => Promise<any>> extends Action<T> {
+interface CallbackAction<T, Fn extends (...args: any[]) => Promise<any>, Ctx> extends Action<T> {
+    context?: Ctx;
     data: PromiseReturnType<Fn>;
 }
 
-interface ErrorAction<T> extends Action<T> {
+interface ErrorAction<T, Ctx> extends Action<T> {
+    context?: Ctx;
     error: any;
 }
 
-interface ReduxAsyncActionMap<T, C, E, Fn extends (...args: any[]) => Promise<any>> extends ActionMap {
-    trigger: TriggerAction<T, Fn>;
-    callback: CallbackAction<C, Fn>;
-    error: ErrorAction<E>;
+interface ReduxAsyncActionMap<T, C, E, Fn extends (...args: any[]) => Promise<any>, Ctx> extends ActionMap {
+    trigger: TriggerAction<T, Fn, Ctx>;
+    callback: CallbackAction<C, Fn, Ctx>;
+    error: ErrorAction<E, Ctx>;
 }
 
 interface State<Fn extends (...args: any[]) => Promise<any>> {
@@ -43,13 +46,15 @@ export class ReduxAsync<
     T extends string,
     C extends string,
     E extends string,
-    Fn extends (...args: any[]) => Promise<any>
-> extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn>, Parameters<Fn>> {
-    public readonly actionTypeMap: ActionTypesFromActionMap<ReduxAsyncActionMap<T, C, E, Fn>>;
+    Fn extends (...args: any[]) => Promise<any>,
+    Ctx extends any = undefined,
+> extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn, Ctx>, Parameters<Fn>> {
+    public readonly actionTypeMap: ActionTypesFromActionMap<ReduxAsyncActionMap<T, C, E, Fn, Ctx>>;
 
     private readonly job: Fn;
+    private readonly ctx?: Ctx;
 
-    constructor(trigger: T, callback: C, error: E, job: Fn) {
+    constructor(trigger: T, callback: C, error: E, job: Fn, ctx?: Ctx) {
         super();
         this.actionTypeMap = {
             callback,
@@ -58,9 +63,10 @@ export class ReduxAsync<
         };
 
         this.job = job;
+        this.ctx = ctx;
     }
 
-    public get actionMap(): ReduxAsyncActionMap<T, C, E, Fn> {
+    public get actionMap(): ReduxAsyncActionMap<T, C, E, Fn, Ctx> {
         throw new Error('ReduxAsync.actionMap should only be used as a TypeScript type provider (typeof .actionMap)');
     }
 
@@ -73,7 +79,7 @@ export class ReduxAsync<
     }
 
     protected get internalReducer(): InternalReducer<State<Fn>> {
-        const context: ReduxAsync<T, C, E, Fn> = this;
+        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
 
         return (state: State<Fn>, action: Action): State<Fn> => {
             switch(action.type) {
@@ -81,7 +87,7 @@ export class ReduxAsync<
                     return {
                         busy: true,
                         data: undefined,
-                        query: (<TriggerAction<T, Fn>>action).query,
+                        query: (<TriggerAction<T, Fn, Ctx>>action).query,
                         updated: {
                             query: new Date().toISOString(),
                         },
@@ -90,7 +96,7 @@ export class ReduxAsync<
                     return {
                         ...state,
                         busy: false,
-                        data: (<CallbackAction<C, Fn>>action).data,
+                        data: (<CallbackAction<C, Fn, Ctx>>action).data,
                         error: undefined,
                         updated: {
                             ...state.updated,
@@ -103,7 +109,7 @@ export class ReduxAsync<
                         ...state,
                         busy: false,
                         data: undefined,
-                        error: (<ErrorAction<E>>action).error,
+                        error: (<ErrorAction<E, Ctx>>action).error,
                         updated: {
                             ...state.updated,
                             data: undefined,
@@ -117,15 +123,16 @@ export class ReduxAsync<
     }
 
     public get saga(): (() => IterableIterator<ForkEffect>) {
-        const context: ReduxAsync<T, C, E, Fn> = this;
+        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
 
         return function* (): IterableIterator<ForkEffect> {
             yield takeLatest(
                 context.actionTypeMap.trigger,
-                function* (action: TriggerAction<T, Fn>): IterableIterator<CallEffect | PutEffect> {
+                function* (action: TriggerAction<T, Fn, Ctx>): IterableIterator<CallEffect | PutEffect> {
                     try {
                         // Wrapping async function in an async function because in some cases redux-saga destroys `this`
                         yield put({
+                            context: context.ctx,
                             type: context.actionTypeMap.callback,
                             data: <PromiseReturnType<Fn>>(yield call(
                                 async (): Promise<PromiseReturnType<Fn>> => context.job(...action.query),
@@ -139,15 +146,16 @@ export class ReduxAsync<
         };
     }
 
-    public run(...i: Parameters<Fn>): TriggerAction<T, Fn> {
+    public run(...i: Parameters<Fn>): TriggerAction<T, Fn, Ctx> {
         return {
+            context: this.ctx,
             type: this.actionTypeMap.trigger,
             query: i,
         };
     }
 
     public get runSaga(): (...i: Parameters<Fn>) => SagaIterator<State<Fn>> {
-        const context: ReduxAsync<T, C, E, Fn> = this;
+        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
 
         return function* (...i: Parameters<Fn>): SagaIterator<State<Fn>> {
             // Fire request
@@ -164,8 +172,8 @@ export class ReduxAsync<
         };
     }
 
-    private error(error: any): ErrorAction<E> {
-        const returnable: ErrorAction<E> = { type: this.actionTypeMap.error, error: 'Error: see console' };
+    private error(error: any): ErrorAction<E, Ctx> {
+        const returnable: ErrorAction<E, Ctx> = { context: this.ctx, type: this.actionTypeMap.error, error: 'Error: see console' };
 
         if (error instanceof Error) {
             returnable.error = Object.getOwnPropertyNames(error).reduce(
