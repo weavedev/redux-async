@@ -62,7 +62,7 @@
 					<a href="_reduxasync_.callbackaction.html">CallbackAction</a>
 				</li>
 			</ul>
-			<h1>Interface CallbackAction&lt;T, Fn&gt;</h1>
+			<h1>Interface CallbackAction&lt;T, Fn, Ctx&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -77,6 +77,9 @@
 					</li>
 					<li>
 						<h4>Fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h4>
+					</li>
+					<li>
+						<h4>Ctx</h4>
 					</li>
 				</ul>
 			</section>
@@ -100,6 +103,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.callbackaction.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.callbackaction.html#data" class="tsd-kind-icon">data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_reduxasync_.callbackaction.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
@@ -110,12 +114,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="context" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context</h3>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">Ctx</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L15">ReduxAsync.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="data" class="tsd-anchor"></a>
 					<h3>data</h3>
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../modules/_reduxasync_.html#promisereturntype" class="tsd-signature-type">PromiseReturnType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/f140903/lib/ReduxAsync.ts#L14">ReduxAsync.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L16">ReduxAsync.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -153,6 +167,9 @@
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_reduxasync_.callbackaction.html" class="tsd-kind-icon">Callback<wbr>Action</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_reduxasync_.callbackaction.html#context" class="tsd-kind-icon">context</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_reduxasync_.callbackaction.html#data" class="tsd-kind-icon">data</a>
 							</li>

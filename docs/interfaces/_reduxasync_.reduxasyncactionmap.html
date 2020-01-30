@@ -62,7 +62,7 @@
 					<a href="_reduxasync_.reduxasyncactionmap.html">ReduxAsyncActionMap</a>
 				</li>
 			</ul>
-			<h1>Interface ReduxAsyncActionMap&lt;T, C, E, Fn&gt;</h1>
+			<h1>Interface ReduxAsyncActionMap&lt;T, C, E, Fn, Ctx&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -83,6 +83,9 @@
 					</li>
 					<li>
 						<h4>Fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h4>
+					</li>
+					<li>
+						<h4>Ctx</h4>
 					</li>
 				</ul>
 			</section>
@@ -123,30 +126,30 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="callback" class="tsd-anchor"></a>
 					<h3>callback</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.callbackaction.html" class="tsd-signature-type">CallbackAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.callbackaction.html" class="tsd-signature-type">CallbackAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/f140903/lib/ReduxAsync.ts#L23">ReduxAsync.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L26">ReduxAsync.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
-					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/f140903/lib/ReduxAsync.ts#L24">ReduxAsync.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L27">ReduxAsync.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="trigger" class="tsd-anchor"></a>
 					<h3>trigger</h3>
-					<div class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/f140903/lib/ReduxAsync.ts#L22">ReduxAsync.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/1affd03/lib/ReduxAsync.ts#L25">ReduxAsync.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
