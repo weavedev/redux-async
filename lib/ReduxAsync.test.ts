@@ -35,12 +35,13 @@ const wrapConsole: (() => (() => ConsoleReport)) = (): (() => ConsoleReport) => 
 };
 
 let c: ReduxAsync<'cT', 'cC', 'cE', () => Promise<string>>;
-let ctx: ReduxAsync<'ctxT', 'ctxC', 'ctxE', () => Promise<string>, { with: 'context' }>;
+let ctx: ReduxAsync<'ctxT', 'ctxC', 'ctxE', () => Promise<string>, { context: { with: 'context' } }>;
 let e: ReduxAsync<'eT', 'eC', 'eE', (i: number, j: number, k: boolean) => Promise<string>>;
 let ee: ReduxAsync<'eeT', 'eeC', 'eeE', (i: number, j: number, k: boolean) => Promise<string>>;
 let f: ReduxAsync<'fT', 'fC', 'fE', (i: number, j: number, k: boolean) => Promise<string>>;
 let n: ReduxAsync<'nT', 'nC', 'nE', (i: number, j: number, k: boolean) => Promise<string>>;
 let t: ReduxAsync<'tT', 'tC', 'tE', () => Promise<string>>;
+let tr: ReduxAsync<'trT', 'trC', 'trE', (a: string) => Promise<string>, { customRun(b: boolean): [string] }>;
 let store: Store<{
     c: typeof c.state;
     ctx: typeof ctx.state;
@@ -49,6 +50,7 @@ let store: Store<{
     f: typeof f.state;
     n: typeof n.state;
     t: typeof t.state;
+    tr: typeof tr.state;
 }>;
 let sagaMiddleware: SagaMiddleware;
 
@@ -76,7 +78,7 @@ beforeEach(() => {
                 resolve(`done!`);
             }, 50);
         });
-    }, { with: 'context' });
+    }, { context: { with: 'context' } });
     e = new ReduxAsync('eT', 'eC', 'eE', async (i: number, j: number, k: boolean): Promise<string> => {
         return new Promise((_: ((value: string) => void), reject: ((value: any) => void)): void => {
             setTimeout(() => {
@@ -108,6 +110,13 @@ beforeEach(() => {
     t = new ReduxAsync('tT', 'tC', 'tE', async (): Promise<string> => {
         throw 4;
     });
+    tr = new ReduxAsync('trT', 'trC', 'trE', async (a: string): Promise<string> => {
+        return `Found a ${typeof a}: "${a}"`;
+    }, {
+        customRun: (b: boolean): [string] => {
+            return [`Found a ${b === true ? 'happy' : 'sad'} ${typeof b}`];
+        },
+    });
     sagaMiddleware = reduxSaga();
     store = createStore(
         combineReducers({
@@ -118,6 +127,7 @@ beforeEach(() => {
             f: f.reducer,
             n: n.reducer,
             t: t.reducer,
+            tr: tr.reducer,
         }),
         applyMiddleware(sagaMiddleware),
     );
@@ -128,6 +138,7 @@ beforeEach(() => {
     sagaMiddleware.run(f.saga);
     sagaMiddleware.run(n.saga);
     sagaMiddleware.run(t.saga);
+    sagaMiddleware.run(tr.saga);
 });
 
 test('Should throw when accessing .actionMap', () => {
@@ -272,4 +283,13 @@ test('Should include context in action if set', (done: () => void) => {
         });
     });
     store.dispatch(ctx.run());
+});
+
+test('Should transform run if transformRun is set', (done: () => void) => {
+    expect(store.getState().tr.data).toBeUndefined();
+    store.dispatch(tr.run(true));
+    setTimeout(() => {
+        expect(store.getState().tr.data).toEqual(`Found a string: "Found a happy boolean"`);
+        done();
+    }, 80);
 });
