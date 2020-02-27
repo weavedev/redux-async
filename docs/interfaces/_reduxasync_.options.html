@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ReduxAsyncActionMap | @weavedev/redux-async</title>
+	<title>Options | @weavedev/redux-async</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/_reduxasync_.html">&quot;ReduxAsync&quot;</a>
 				</li>
 				<li>
-					<a href="_reduxasync_.reduxasyncactionmap.html">ReduxAsyncActionMap</a>
+					<a href="_reduxasync_.options.html">Options</a>
 				</li>
 			</ul>
-			<h1>Interface ReduxAsyncActionMap&lt;T, C, E, Fn, Ctx&gt;</h1>
+			<h1>Interface Options&lt;Ctx, Br&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -73,19 +73,10 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>T</h4>
-					</li>
-					<li>
-						<h4>C</h4>
-					</li>
-					<li>
-						<h4>E</h4>
-					</li>
-					<li>
-						<h4>Fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h4>
-					</li>
-					<li>
 						<h4>Ctx</h4>
+					</li>
+					<li>
+						<h4>Br<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -93,18 +84,9 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">ActionMap</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">ReduxAsyncActionMap</span>
-							</li>
-						</ul>
+						<span class="target">Options</span>
 					</li>
 				</ul>
-			</section>
-			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-				<h3 class="tsd-before-signature">Indexable</h3>
-				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">Action</span></div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
@@ -113,9 +95,8 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.reduxasyncactionmap.html#callback" class="tsd-kind-icon">callback</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.reduxasyncactionmap.html#error" class="tsd-kind-icon">error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.reduxasyncactionmap.html#trigger" class="tsd-kind-icon">trigger</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.options.html#context" class="tsd-kind-icon">context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_reduxasync_.options.html#customrun" class="tsd-kind-icon">custom<wbr>Run</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,32 +105,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="callback" class="tsd-anchor"></a>
-					<h3>callback</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.callbackaction.html" class="tsd-signature-type">CallbackAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="context" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context</h3>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">Ctx</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/993bc8c/lib/ReduxAsync.ts#L26">ReduxAsync.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/993bc8c/lib/ReduxAsync.ts#L43">ReduxAsync.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="error" class="tsd-anchor"></a>
-					<h3>error</h3>
-					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.erroraction.html" class="tsd-signature-type">ErrorAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="customrun" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> custom<wbr>Run</h3>
+					<div class="tsd-signature tsd-kind-icon">custom<wbr>Run<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">Br</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/993bc8c/lib/ReduxAsync.ts#L27">ReduxAsync.ts:27</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="trigger" class="tsd-anchor"></a>
-					<h3>trigger</h3>
-					<div class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">:</span> <a href="_reduxasync_.triggeraction.html" class="tsd-signature-type">TriggerAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Fn</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Ctx</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/993bc8c/lib/ReduxAsync.ts#L25">ReduxAsync.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/gerarts/redux-async/blob/993bc8c/lib/ReduxAsync.ts#L44">ReduxAsync.ts:44</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,27 +148,24 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_reduxasync_.erroraction.html" class="tsd-kind-icon">Error<wbr>Action</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="_reduxasync_.options.html" class="tsd-kind-icon">Options</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="_reduxasync_.reduxasyncactionmap.html" class="tsd-kind-icon">Redux<wbr>Async<wbr>Action<wbr>Map</a>
+						<a href="_reduxasync_.options.html" class="tsd-kind-icon">Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_reduxasync_.reduxasyncactionmap.html#callback" class="tsd-kind-icon">callback</a>
+								<a href="_reduxasync_.options.html#context" class="tsd-kind-icon">context</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_reduxasync_.reduxasyncactionmap.html#error" class="tsd-kind-icon">error</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_reduxasync_.reduxasyncactionmap.html#trigger" class="tsd-kind-icon">trigger</a>
+								<a href="_reduxasync_.options.html#customrun" class="tsd-kind-icon">custom<wbr>Run</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_reduxasync_.reduxasyncactionmap.html" class="tsd-kind-icon">Redux<wbr>Async<wbr>Action<wbr>Map</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_reduxasync_.state.html" class="tsd-kind-icon">State</a>
 					</li>

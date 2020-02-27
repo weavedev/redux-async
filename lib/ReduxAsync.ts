@@ -39,6 +39,17 @@ interface State<Fn extends (...args: any[]) => Promise<any>> {
     };
 }
 
+interface Options<Ctx = undefined, Br extends ((...args: any[]) => any) | undefined = undefined> {
+    context?: Ctx;
+    customRun?: Br;
+}
+type AnyOptionFromFn<Fn extends (...args: any[]) => Promise<any>> = Options<any, (...args: any[]) => Parameters<Fn>>;
+type AnyOption = AnyOptionFromFn<(...args: any[]) => Promise<any>>;
+
+type FirstFnIfDefined<Fn1, Fn2 extends (...args: any[]) => any> = Fn1 extends (...args: any[]) => any ? Fn1 : Fn2;
+
+type OptOpt<O extends (AnyOption) | undefined, K extends keyof AnyOption> = O extends AnyOption ? O[K] : undefined;
+
 /**
  * Typed redux async class that generates actions, reducer and saga.
  */
@@ -47,14 +58,17 @@ export class ReduxAsync<
     C extends string,
     E extends string,
     Fn extends (...args: any[]) => Promise<any>,
-    Ctx extends any = undefined,
-> extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn, Ctx>, Parameters<Fn>> {
-    public readonly actionTypeMap: ActionTypesFromActionMap<ReduxAsyncActionMap<T, C, E, Fn, Ctx>>;
+    O extends (Options<any, (...args: any[]) => Parameters<Fn>>) | undefined = undefined,
+> extends Reduxable<State<Fn>, ReduxAsyncActionMap<T, C, E, Fn, O>, Parameters<FirstFnIfDefined<OptOpt<O, 'customRun'>, Fn>>> {
+    public readonly actionTypeMap: ActionTypesFromActionMap<ReduxAsyncActionMap<T, C, E, Fn, O>>;
 
     private readonly job: Fn;
-    private readonly ctx?: Ctx;
 
-    constructor(trigger: T, callback: C, error: E, job: Fn, ctx?: Ctx) {
+    private readonly context: OptOpt<O, 'context'>;
+
+    private readonly customRun: OptOpt<O, 'customRun'>;
+
+    constructor(trigger: T, callback: C, error: E, job: Fn, options?: O) {
         super();
         this.actionTypeMap = {
             callback,
@@ -63,10 +77,15 @@ export class ReduxAsync<
         };
 
         this.job = job;
-        this.ctx = ctx;
+        this.context = <OptOpt<O, 'context'>>(
+            options ? <O extends AnyOptionFromFn<Fn> ? OptOpt<O, 'context'> : never>options.context : undefined
+        );
+        this.customRun = <OptOpt<O, 'customRun'>>(
+            options ? <O extends AnyOptionFromFn<Fn> ? O['customRun'] : never>options.customRun : undefined
+        );
     }
 
-    public get actionMap(): ReduxAsyncActionMap<T, C, E, Fn, Ctx> {
+    public get actionMap(): ReduxAsyncActionMap<T, C, E, Fn, O extends AnyOptionFromFn<Fn> ? OptOpt<O, 'context'> : undefined> {
         throw new Error('ReduxAsync.actionMap should only be used as a TypeScript type provider (typeof .actionMap)');
     }
 
@@ -79,7 +98,7 @@ export class ReduxAsync<
     }
 
     protected get internalReducer(): InternalReducer<State<Fn>> {
-        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
+        const context: ReduxAsync<T, C, E, Fn, OptOpt<O, 'context'>> = this;
 
         return (state: State<Fn>, action: Action): State<Fn> => {
             switch(action.type) {
@@ -87,7 +106,7 @@ export class ReduxAsync<
                     return {
                         busy: true,
                         data: undefined,
-                        query: (<TriggerAction<T, Fn, Ctx>>action).query,
+                        query: (<TriggerAction<T, Fn, OptOpt<O, 'context'>>>action).query,
                         updated: {
                             query: new Date().toISOString(),
                         },
@@ -96,7 +115,7 @@ export class ReduxAsync<
                     return {
                         ...state,
                         busy: false,
-                        data: (<CallbackAction<C, Fn, Ctx>>action).data,
+                        data: (<CallbackAction<C, Fn, OptOpt<O, 'context'>>>action).data,
                         error: undefined,
                         updated: {
                             ...state.updated,
@@ -109,7 +128,7 @@ export class ReduxAsync<
                         ...state,
                         busy: false,
                         data: undefined,
-                        error: (<ErrorAction<E, Ctx>>action).error,
+                        error: (<ErrorAction<E, OptOpt<O, 'context'>>>action).error,
                         updated: {
                             ...state.updated,
                             data: undefined,
@@ -123,16 +142,16 @@ export class ReduxAsync<
     }
 
     public get saga(): (() => IterableIterator<ForkEffect>) {
-        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
+        const context: ReduxAsync<T, C, E, Fn, OptOpt<O, 'context'>> = this;
 
         return function* (): IterableIterator<ForkEffect> {
             yield takeLatest(
                 context.actionTypeMap.trigger,
-                function* (action: TriggerAction<T, Fn, Ctx>): IterableIterator<CallEffect | PutEffect> {
+                function* (action: TriggerAction<T, Fn, OptOpt<O, 'context'>>): IterableIterator<CallEffect | PutEffect> {
                     try {
                         // Wrapping async function in an async function because in some cases redux-saga destroys `this`
                         yield put({
-                            context: context.ctx,
+                            context: context.context,
                             type: context.actionTypeMap.callback,
                             data: <PromiseReturnType<Fn>>(yield call(
                                 async (): Promise<PromiseReturnType<Fn>> => context.job(...action.query),
@@ -146,18 +165,18 @@ export class ReduxAsync<
         };
     }
 
-    public run(...i: Parameters<Fn>): TriggerAction<T, Fn, Ctx> {
+    public run(...i: Parameters<FirstFnIfDefined<OptOpt<O, 'customRun'>, Fn>>): TriggerAction<T, Fn, OptOpt<O, 'context'>> {
         return {
-            context: this.ctx,
+            context: this.context,
             type: this.actionTypeMap.trigger,
-            query: i,
+            query: this.customRun !== undefined ? this.customRun(...i) : <Parameters<Fn>>i,
         };
     }
 
-    public get runSaga(): (...i: Parameters<Fn>) => SagaIterator<State<Fn>> {
-        const context: ReduxAsync<T, C, E, Fn, Ctx> = this;
+    public get runSaga(): (...i: Parameters<FirstFnIfDefined<OptOpt<O, 'customRun'>, Fn>>) => SagaIterator<State<Fn>> {
+        const context: ReduxAsync<T, C, E, Fn, OptOpt<O, 'context'>> = this;
 
-        return function* (...i: Parameters<Fn>): SagaIterator<State<Fn>> {
+        return function* (...i: Parameters<FirstFnIfDefined<OptOpt<O, 'customRun'>, Fn>>): SagaIterator<State<Fn>> {
             // Fire request
             yield put(context.run(...i));
 
@@ -172,8 +191,12 @@ export class ReduxAsync<
         };
     }
 
-    private error(error: any): ErrorAction<E, Ctx> {
-        const returnable: ErrorAction<E, Ctx> = { context: this.ctx, type: this.actionTypeMap.error, error: 'Error: see console' };
+    private error(error: any): ErrorAction<E, OptOpt<O, 'context'>> {
+        const returnable: ErrorAction<E, OptOpt<O, 'context'>> = {
+            context: this.context,
+            type: this.actionTypeMap.error,
+            error: 'Error: see console',
+        };
 
         if (error instanceof Error) {
             returnable.error = Object.getOwnPropertyNames(error).reduce(
