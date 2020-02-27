@@ -33,7 +33,7 @@
       "email": "dev@gerarts.nl"
     }
   ],
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/weavedev/redux-async/issues"
   },
