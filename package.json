@@ -9,7 +9,7 @@
     "ci:test": "npm-run-all -l build test:*",
     "clean": "del-cli dist",
     "docs": "typedoc && touch docs/.nojekyll",
-    "prepare": "npm-run-all -l build docs",
+    "prepare": "npm-run-all -l test build docs",
     "test": "npm-run-all build test:*",
     "test:jest": "NODE_ENV=test jest",
     "test:lint": "tslint -p tsconfig.json -c tslint.json"
