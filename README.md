@@ -2,7 +2,7 @@
 
 [![Build Status - Travis CI](https://img.shields.io/travis/weavedev/redux-async.svg)](https://travis-ci.org/weavedev/redux-async)
 [![Test Coverage - Code Climate](https://img.shields.io/codeclimate/coverage/weavedev/redux-async.svg)](https://codeclimate.com/github/weavedev/redux-async/test_coverage)
-[![GPL-3.0](https://img.shields.io/github/license/weavedev/redux-async.svg)](https://github.com/weavedev/redux-async/blob/master/LICENSE)
+[![MIT](https://img.shields.io/github/license/weavedev/redux-async.svg)](https://github.com/weavedev/redux-async/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@weavedev/redux-async.svg)](https://www.npmjs.com/package/@weavedev/redux-async)
 
 Async function wrapper for [Redux](http://redux.js.org/) powered by [Redux-Saga](https://redux-saga.js.org)
@@ -107,6 +107,6 @@ type MyState = typeof asyncResource.state;
 
 ## License
 
-[GPL-3.0](https://github.com/weavedev/redux-async/blob/master/LICENSE)
+[MIT](https://github.com/weavedev/redux-async/blob/master/LICENSE)
 
 Made by [Paul Gerarts](https://github.com/gerarts) and [Weave](https://weave.nl)
