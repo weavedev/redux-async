@@ -2,5 +2,6 @@
 dist/
 node_modules/
 coverage/
-
+.nyc_output/
+tsconfig.tsbuildinfo
 .DS_Store

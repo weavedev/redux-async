@@ -7,5 +7,5 @@ module.exports = {
         '**/*.test.*'
     ],
     out: './docs',
-    entryPoints: 'lib/ReduxAsync.ts'
+    entryPoints: 'lib/createAsyncReducer.ts',
 };
