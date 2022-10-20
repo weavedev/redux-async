@@ -1,6 +1,6 @@
 {
   "name": "@weavedev/redux-async",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0",
   "description": "Async function wrapper for redux powered by @reduxjs/toolkit",
   "main": "dist/createAsyncReducer.js",
   "types": "dist/createAsyncReducer.d.ts",
